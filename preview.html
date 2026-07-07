@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SMCT 2026 · Matriz de Materiais da Secretaria</title>
+  <style>
+    :root {
+      --bg: #061827;
+      --bg-2: #08253b;
+      --card: #ffffff;
+      --muted: #64748b;
+      --text: #0f172a;
+      --soft: #f1f7fb;
+      --line: #d9e6ef;
+      --blue: #0068d9;
+      --cyan: #00a6d6;
+      --teal: #00a889;
+      --green: #4caf50;
+      --sand: #f2c46d;
+      --orange: #f47b20;
+      --red: #e84855;
+      --purple: #7457d9;
+      --shadow: 0 18px 50px rgba(4, 24, 42, .16);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 5%, rgba(0, 166, 214, .35), transparent 30rem),
+        radial-gradient(circle at 90% 10%, rgba(0, 168, 137, .28), transparent 30rem),
+        linear-gradient(135deg, #05131f 0%, #08253b 45%, #061827 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; }
+
+    .hero {
+      color: #fff;
+      padding: 54px 5vw 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: auto -15vw -20vw auto;
+      width: 52vw;
+      height: 52vw;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+      color: #dff8ff;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--teal));
+      box-shadow: 0 0 0 6px rgba(0,166,214,.16);
+    }
+
+    h1 {
+      margin: 24px 0 12px;
+      font-size: clamp(36px, 7vw, 88px);
+      line-height: .92;
+      max-width: 1180px;
+      letter-spacing: -0.07em;
+    }
+
+    .hero .subtitle {
+      max-width: 960px;
+      font-size: clamp(17px, 2vw, 25px);
+      line-height: 1.45;
+      color: #c8e7f2;
+      margin: 0 0 28px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(170px, 1fr));
+      gap: 14px;
+      max-width: 1180px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      border-radius: 20px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      padding: 18px;
+      backdrop-filter: blur(12px);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: #b8dbe7;
+      font-size: 13px;
+      line-height: 1.35;
+      display: block;
+    }
+
+    .shell {
+      background: #f7fbfe;
+      border-radius: 38px 38px 0 0;
+      padding: 26px 5vw 72px;
+      min-height: 60vh;
+      box-shadow: 0 -24px 80px rgba(0,0,0,.18);
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 16px 0;
+      background: rgba(247,251,254,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(217,230,239,.7);
+    }
+
+    .nav a, .filter button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: #17314a;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(6,24,39,.06);
+      cursor: pointer;
+    }
+
+    .nav a:hover, .filter button:hover, .filter button.active {
+      border-color: rgba(0,104,217,.35);
+      background: #eaf6ff;
+      color: #0053b0;
+    }
+
+    .section {
+      padding: 36px 0 8px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 22px;
+      margin: 0 0 20px;
+    }
+
+    h2 {
+      font-size: clamp(26px, 4vw, 46px);
+      line-height: .98;
+      letter-spacing: -0.055em;
+      margin: 0;
+      color: #0a2236;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 610px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .notice {
+      border: 1px solid #bde6f2;
+      background: linear-gradient(135deg, #ebfaff, #f5fff9);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin: 24px 0;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .notice .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .notice h3 { margin: 0 0 6px; font-size: 18px; }
+    .notice p { margin: 0; color: #325268; line-height: 1.5; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan), var(--teal));
+    }
+
+    .card.print::after { background: linear-gradient(90deg, var(--orange), var(--sand)); }
+    .card.digital::after { background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .card.event::after { background: linear-gradient(90deg, var(--teal), var(--green)); }
+    .card.video::after { background: linear-gradient(90deg, var(--red), var(--purple)); }
+    .card.doc::after { background: linear-gradient(90deg, #0f172a, #64748b); }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: #eff6ff;
+      color: #0053b0;
+      border: 1px solid #cae2ff;
+      white-space: nowrap;
+    }
+
+    .badge.print { background: #fff3df; color: #9a4b00; border-color: #ffd79b; }
+    .badge.event { background: #eafaf4; color: #00755f; border-color: #bdebdc; }
+    .badge.video { background: #fff0f4; color: #a81735; border-color: #ffc2d1; }
+    .badge.doc { background: #f1f5f9; color: #334155; border-color: #dbe4ef; }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 21px;
+      letter-spacing: -0.025em;
+      color: #0a2236;
+    }
+
+    .card p {
+      color: #52677c;
+      line-height: 1.48;
+      margin: 0 0 16px;
+      font-size: 14px;
+    }
+
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: #21364a;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .card li { margin: 4px 0; }
+
+    .spec {
+      background: var(--soft);
+      border: 1px solid #e0edf5;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-top: 16px;
+      color: #24445d;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .spec strong { color: #0a2236; }
+
+    .table-wrap {
+      overflow-x: auto;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 980px;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 16px;
+      border-bottom: 1px solid #e6eef5;
+    }
+
+    th {
+      background: #07243a;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+    }
+
+    tr:nth-child(even) td { background: #f8fbfe; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { font-weight: 900; color: #0a2236; }
+
+    .pill {
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+      background: #eef6ff;
+      color: #0053b0;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .time-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 14px 36px rgba(6,24,39,.10);
+      min-height: 160px;
+    }
+
+    .time-card strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: .06em;
+      color: #0068d9;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .time-card h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: -.025em;
+    }
+
+    .time-card p {
+      margin: 0;
+      font-size: 13px;
+      color: #52677c;
+      line-height: 1.42;
+    }
+
+    .filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .production-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(6,24,39,.09);
+    }
+
+    .mini h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: #0a2236;
+    }
+
+    .mini .type {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #0068d9;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .mini p {
+      margin: 0;
+      color: #52677c;
+      line-height: 1.4;
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding: 28px;
+      border-radius: 28px;
+      background: #061827;
+      color: #dbeafe;
+      display: grid;
+      grid-template-columns: 1.4fr .8fr;
+      gap: 24px;
+    }
+
+    .footer h2 { color: #fff; font-size: 28px; }
+    .footer p { color: #b8dbe7; line-height: 1.55; }
+    .footer ul { margin: 0; padding-left: 18px; color: #dbeafe; line-height: 1.7; }
+
+    .print-only { display: none; }
+
+    @media (max-width: 1100px) {
+      .hero-meta, .grid.four, .production-grid, .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .hero { padding-top: 32px; }
+      .shell { border-radius: 24px 24px 0 0; }
+      .hero-meta, .grid, .grid.two, .grid.four, .production-grid, .timeline, .footer { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 10px; }
+      .notice { grid-template-columns: 1fr; }
+      .nav { position: relative; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .hero { color: #0f172a; background: #fff; padding: 20px 0; }
+      .shell { box-shadow: none; border-radius: 0; padding: 0; }
+      .nav, .filter { display: none; }
+      .card, .table-wrap, .mini, .notice, .time-card { box-shadow: none; break-inside: avoid; }
+      .print-only { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="eyebrow">10ª SMCT 2026 · Secretaria Municipal de Educação de Itapissuma</div>
+    <h1>Matriz do que será criado pela Secretaria</h1>
+    <p class="subtitle">Mapa visual de materiais institucionais, digitais, impressos, sinalização, ambientação, credenciamento, YouTube, votação, premiação, certificados e pós-evento para a 10ª SMCT.</p>
+    <div class="hero-meta" aria-label="Resumo de produção">
+      <div class="metric"><strong>11</strong><span>frentes principais de produção visual e operacional.</span></div>
+      <div class="metric"><strong>70+</strong><span>peças e modelos previstos para Secretaria, evento e comunicação.</span></div>
+      <div class="metric"><strong>3</strong><span>ambientes de entrega: digital, impresso e presencial.</span></div>
+      <div class="metric"><strong>03/12</strong><span>culminância presencial da 10ª SMCT 2026.</span></div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <nav class="nav" aria-label="Navegação do escopo">
+      <a href="#visao">Visão geral</a>
+      <a href="#matriz">Matriz completa</a>
+      <a href="#sinalizacao">Sinalização</a>
+      <a href="#digital">Digital</a>
+      <a href="#impressos">Impressos</a>
+      <a href="#evento">Evento presencial</a>
+      <a href="#cronograma">Fases</a>
+      <a href="#checklist">Checklist</a>
+    </nav>
+
+    <section class="section" id="visao">
+      <div class="section-head">
+        <h2>Escopo real da Secretaria</h2>
+        <p>Este layout separa o que precisa ser produzido pela Secretaria do que ficará sob responsabilidade das equipes escolares. A Secretaria cria a identidade, os modelos, a comunicação, a sinalização, a estrutura de evento, os sistemas de votação, os materiais oficiais e a memória institucional.</p>
+      </div>
+
+      <div class="notice">
+        <div class="icon">!</div>
+        <div>
+          <h3>Regra de escopo</h3>
+          <p>A Secretaria não produz o conteúdo científico dos projetos, nem a fala dos estudantes, nem a ornamentação particular dos estandes. Ela produz os padrões, modelos, peças oficiais, estrutura de divulgação, impressão, credenciamento, avaliação, ambientação e comunicação pública da 10ª SMCT.</p>
+        </div>
+      </div>
+
+      <div class="grid four">
+        <article class="card digital">
+          <div class="badge-row"><span class="badge">Identidade</span><span class="badge digital">Digital</span></div>
+          <h3>Sistema visual da edição</h3>
+          <p>Base gráfica que sustenta todas as demais peças.</p>
+          <ul>
+            <li>Selo/marca 10ª SMCT 2026.</li>
+            <li>Key visual do tema.</li>
+            <li>Paleta cromática, tipografia e grafismos.</li>
+            <li>Templates para Figma, redes, documentos e impressão.</li>
+          </ul>
+        </article>
+
+        <article class="card digital">
+          <div class="badge-row"><span class="badge digital">Redes sociais</span><span class="badge">Instagram</span></div>
+          <h3>Campanha digital</h3>
+          <p>Peças para publicação institucional antes, durante e depois do evento.</p>
+          <ul>
+            <li>Feed, carrossel, stories e capas de reels.</li>
+            <li>Cards de prazos, categorias e orientações.</li>
+            <li>Contagem regressiva, cobertura e resultados.</li>
+          </ul>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Impressão</span><span class="badge event">Evento</span></div>
+          <h3>Sinalização e ambientação</h3>
+          <p>Peças físicas para orientar o fluxo do público no local.</p>
+          <ul>
+            <li>Backdrop para fotos.</li>
+            <li>Lonas de entrada e direcionamento.</li>
+            <li>Painéis: almoço, Central de Operações, Credenciamento, banheiros e avaliação.</li>
+          </ul>
+        </article>
+
+        <article class="card event">
+          <div class="badge-row"><span class="badge event">Operação</span><span class="badge doc">Controle</span></div>
+          <h3>Credenciamento e avaliação</h3>
+          <p>Materiais para identificação, controle de presença e avaliação científica.</p>
+          <ul>
+            <li>Crachás por função.</li>
+            <li>Listas, mapas e programação.</li>
+            <li>Fichas de avaliação, planilhas e QR-Codes.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="matriz">
+      <div class="section-head">
+        <h2>Matriz completa de produção</h2>
+        <p>Lista objetiva do que será criado, com tipo de material, uso, formato de entrega e observações de produção.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Frente</th>
+              <th>O que será criado</th>
+              <th>Tipo de material</th>
+              <th>Uso principal</th>
+              <th>Formato recomendado</th>
+              <th>Observações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Identidade da edição</td>
+              <td>Selo/marca 10ª SMCT, key visual, grafismos, ícones, paleta e tipografia</td>
+              <td><span class="pill">Branding</span></td>
+              <td>Padronizar todos os materiais</td>
+              <td>Figma, SVG, PNG, PDF</td>
+              <td>Base para redes, documentos, banners, camisas e sinalização.</td>
+            </tr>
+            <tr>
+              <td>Documentos oficiais</td>
+              <td>Capas e templates para edital, cronograma, anexos, memorandos e ofícios</td>
+              <td><span class="pill">Documento</span></td>
+              <td>Publicação e comunicação institucional</td>
+              <td>A4 vertical, PDF, DOCX</td>
+              <td>Precisa manter hierarquia institucional e legibilidade.</td>
+            </tr>
+            <tr>
+              <td>Modelos das equipes</td>
+              <td>Resumo Simples, Diário de Bordo, Banner Expositivo, roteiro de vídeo e termo de autorização</td>
+              <td><span class="pill">Template</span></td>
+              <td>Orientar submissões das equipes</td>
+              <td>A4, PDF editável, modelo Figma/Canva</td>
+              <td>Não é conteúdo dos alunos; é modelo oficial.</td>
+            </tr>
+            <tr>
+              <td>Instagram Feed</td>
+              <td>Cards de lançamento, tema, inscrições, prazos, categorias, homologação, local, votação e resultados</td>
+              <td><span class="pill">Card feed</span></td>
+              <td>Comunicação pública</td>
+              <td>1080x1350 e 1080x1080</td>
+              <td>Preferir 4:5 para maior ocupação no feed.</td>
+            </tr>
+            <tr>
+              <td>Instagram Stories</td>
+              <td>Stories de aviso, contagem regressiva, bastidores, votação, QR-Code e cobertura ao vivo</td>
+              <td><span class="pill">Story</span></td>
+              <td>Alcance rápido e lembretes</td>
+              <td>1080x1920</td>
+              <td>Versões com área segura para botões, links e stickers.</td>
+            </tr>
+            <tr>
+              <td>Carrosséis</td>
+              <td>Guias de categorias, etapas, como submeter, critérios de avaliação e penalidades</td>
+              <td><span class="pill">Carrossel</span></td>
+              <td>Explicação didática</td>
+              <td>1080x1350 por slide</td>
+              <td>Começar com capa forte e encerrar com chamada para ação.</td>
+            </tr>
+            <tr>
+              <td>YouTube</td>
+              <td>Thumbnails, capa de playlist, padrão de título, descrição, tela de espera e telas da live</td>
+              <td><span class="pill">Vídeo</span></td>
+              <td>Vídeos dos projetos e transmissão de resultados</td>
+              <td>1280x720, 1920x1080</td>
+              <td>Deve identificar projeto, escola, categoria e edição.</td>
+            </tr>
+            <tr>
+              <td>Site/Sistema</td>
+              <td>Banners web, cards de etapa, página de anexos, página de aprovados, homologados, vídeos e resultados</td>
+              <td><span class="pill">Web</span></td>
+              <td>Central oficial de informação</td>
+              <td>HTML/CSS, PNG, SVG</td>
+              <td>Manter clareza para orientadores e parceiros externos.</td>
+            </tr>
+            <tr>
+              <td>Credenciamento</td>
+              <td>Crachás, listas, fichas de presença, etiquetas, mapa de estandes e programação impressa</td>
+              <td><span class="pill">Impresso operacional</span></td>
+              <td>Controle de entrada e identificação</td>
+              <td>A6/A5/A4, PVC ou couchê</td>
+              <td>Separar por cor/função: estudante, orientador, avaliador, comissão, apoio.</td>
+            </tr>
+            <tr>
+              <td>Sinalização</td>
+              <td>Painéis de Credenciamento, Central de Operações, Almoço/Lanche, Banheiros, Avaliadores, Saída e Primeiros Socorros</td>
+              <td><span class="pill">Painel/localização</span></td>
+              <td>Orientar circulação no evento</td>
+              <td>A3, A2, A1, lona ou PS</td>
+              <td>Dimensão final depende do local de realização.</td>
+            </tr>
+            <tr>
+              <td>Ambientação</td>
+              <td>Backdrop para fotos, lona de entrada, painel de palco, testeira de mesa, placa de boas-vindas</td>
+              <td><span class="pill">Cenografia</span></td>
+              <td>Presença institucional e fotos oficiais</td>
+              <td>Lona, tecido, adesivo, painel rígido</td>
+              <td>Deve conter marca da edição e assinaturas institucionais.</td>
+            </tr>
+            <tr>
+              <td>Estandes</td>
+              <td>Numeração, identificação por categoria, mapa de distribuição, placas e QR-Code de votação</td>
+              <td><span class="pill">Evento</span></td>
+              <td>Organização das apresentações</td>
+              <td>A4, A3, placas, adesivos</td>
+              <td>Precisa evitar troca autônoma de estandes e orientar limites de área.</td>
+            </tr>
+            <tr>
+              <td>Avaliação</td>
+              <td>Fichas AO, BE, DB, planilha de notas, relatório final e instruções para avaliadores</td>
+              <td><span class="pill">Documento técnico</span></td>
+              <td>Avaliação científica</td>
+              <td>A4, Google Sheets, PDF</td>
+              <td>Separar avaliação oral, banner e diário de bordo.</td>
+            </tr>
+            <tr>
+              <td>Votação popular</td>
+              <td>QR-Codes, formulário, painel de votação, artes de chamada e encerramento</td>
+              <td><span class="pill">Digital + impresso</span></td>
+              <td>Maior engajamento e melhor estande</td>
+              <td>Formulário, A4/A3, stories</td>
+              <td>Prever regras claras e fechamento de votação.</td>
+            </tr>
+            <tr>
+              <td>Camisas</td>
+              <td>Arte da camisa oficial, variações por função, mockups e arquivo para produção</td>
+              <td><span class="pill">Uniforme</span></td>
+              <td>Identidade do evento</td>
+              <td>PDF vetorial, mockup PNG</td>
+              <td>Produção condicionada à disponibilidade de recursos.</td>
+            </tr>
+            <tr>
+              <td>Premiação</td>
+              <td>Diplomas, cards de vencedores, roteiro visual da cerimônia, slides e identidade de premiação</td>
+              <td><span class="pill">Premiação</span></td>
+              <td>Reconhecimento público</td>
+              <td>A4, 16:9, feed/story</td>
+              <td>Separar por categoria, colocação e menções honrosas.</td>
+            </tr>
+            <tr>
+              <td>Certificados</td>
+              <td>Certificados de estudante, orientador, coorientador, avaliador, comissão, parceiro e convidado</td>
+              <td><span class="pill">Documento</span></td>
+              <td>Comprovação de participação</td>
+              <td>A4 horizontal, PDF individual</td>
+              <td>Preparar base para emissão em lote.</td>
+            </tr>
+            <tr>
+              <td>Anais eletrônicos</td>
+              <td>Capa, expediente, sumário, páginas dos trabalhos, ficha catalográfica e PDF final</td>
+              <td><span class="pill">Editorial</span></td>
+              <td>Memória científica da edição</td>
+              <td>PDF editorial</td>
+              <td>Publicação final com ISBN e organização por categorias.</td>
+            </tr>
+            <tr>
+              <td>Cobertura</td>
+              <td>Roteiro de fotos, roteiro de vídeos, cards de bastidores, reels, álbum e vídeo resumo</td>
+              <td><span class="pill">Audiovisual</span></td>
+              <td>Memória institucional</td>
+              <td>Foto, vídeo, reels, álbum digital</td>
+              <td>Planejar registros obrigatórios antes do dia do evento.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="sinalizacao">
+      <div class="section-head">
+        <h2>Sinalização, lonas e painéis locais</h2>
+        <p>Esta é a frente que mais precisa de detalhamento físico. As dimensões finais devem ser fechadas após confirmação e medição do local oficial da culminância.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Lona</span><span class="badge event">Entrada</span></div>
+          <h3>Lona de boas-vindas</h3>
+          <p>Peça principal de recepção do público e das escolas.</p>
+          <ul>
+            <li>“Bem-vindos à 10ª SMCT”.</li>
+            <li>Tema oficial da edição.</li>
+            <li>Assinaturas institucionais.</li>
+            <li>Aplicação em entrada, grade, parede ou pórtico.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> lona fosca com ilhós. Dimensão sugerida: 300x100 cm ou conforme local.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Backdrop</span><span class="badge event">Fotos</span></div>
+          <h3>Backdrop oficial para fotos</h3>
+          <p>Painel de registro institucional para equipes, autoridades, avaliadores e parceiros.</p>
+          <ul>
+            <li>Marca da 10ª SMCT em repetição ou composição central.</li>
+            <li>Grafismos oceânicos/climáticos.</li>
+            <li>Área segura para pessoas à frente.</li>
+            <li>Versão com logos institucionais.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> lona, tecido tensionado ou painel rígido. Dimensão sugerida: 300x220 cm ou 400x250 cm.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Painel</span><span class="badge event">Credenciamento</span></div>
+          <h3>Painel de Credenciamento</h3>
+          <p>Identificação imediata da área onde participantes confirmam presença e retiram materiais.</p>
+          <ul>
+            <li>Placa superior “Credenciamento”.</li>
+            <li>Painel com filas por categoria ou escola.</li>
+            <li>QR-Code para programação/mapa.</li>
+            <li>Orientações de documentos e crachás.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> A2/A1, placa PS, foam board ou lona pequena. Criar também versão A4 para balcão.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Painel</span><span class="badge event">Operação</span></div>
+          <h3>Central de Operações</h3>
+          <p>Identificação do ponto de gestão do evento, suporte e tomada de decisões.</p>
+          <ul>
+            <li>Placa “Central de Operações”.</li>
+            <li>Identificação da Comissão Organizadora.</li>
+            <li>Fluxo de suporte para estandes e infraestrutura.</li>
+            <li>Contato rápido da organização, se aplicável.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> placa A2/A1 + cards A4 internos com checklists operacionais.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Painel</span><span class="badge event">Almoço/Lanche</span></div>
+          <h3>Almoço ou área de lanche</h3>
+          <p>Orientação do local de alimentação das equipes e convidados autorizados.</p>
+          <ul>
+            <li>Placa “Almoço” ou “Lanche das equipes”.</li>
+            <li>Setas direcionais.</li>
+            <li>Horários de distribuição, se definidos.</li>
+            <li>Aviso de organização de fila.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> A3/A2 para paredes e sinalização direcional em setas.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Direcional</span><span class="badge event">Fluxo</span></div>
+          <h3>Setas e placas direcionais</h3>
+          <p>Sinalização distribuída nos corredores e áreas de circulação.</p>
+          <ul>
+            <li>Entrada / Saída.</li>
+            <li>Banheiros.</li>
+            <li>Estandes.</li>
+            <li>Avaliadores.</li>
+            <li>Palco / auditório.</li>
+            <li>Primeiros socorros / apoio.</li>
+          </ul>
+          <div class="spec"><strong>Produção:</strong> placas A3 horizontais, adesivos de piso ou cavaletes, conforme estrutura disponível.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="digital">
+      <div class="section-head">
+        <h2>Materiais digitais</h2>
+        <p>Peças para comunicação nas redes sociais, site, sistema, YouTube e transmissão ao vivo.</p>
+      </div>
+
+      <div class="filter" aria-label="Filtros de produção">
+        <button class="active" data-filter="all">Todos</button>
+        <button data-filter="feed">Feed</button>
+        <button data-filter="story">Story</button>
+        <button data-filter="carrossel">Carrossel</button>
+        <button data-filter="youtube">YouTube</button>
+        <button data-filter="web">Site/Sistema</button>
+      </div>
+
+      <div class="production-grid" id="digitalGrid">
+        <div class="mini" data-kind="feed"><span class="type">Feed</span><h3>Lançamento da edição</h3><p>Card oficial anunciando a 10ª SMCT 2026 e o tema.</p></div>
+        <div class="mini" data-kind="feed"><span class="type">Feed</span><h3>Inscrições abertas</h3><p>Card com período de inscrição, link e chamada para orientadores.</p></div>
+        <div class="mini" data-kind="story"><span class="type">Story</span><h3>Lembrete de prazo</h3><p>Stories rápidos para datas críticas: inscrição, reenvio, segunda etapa e votação.</p></div>
+        <div class="mini" data-kind="carrossel"><span class="type">Carrossel</span><h3>Como participar</h3><p>Sequência com público-alvo, categorias, equipe e etapas de envio.</p></div>
+        <div class="mini" data-kind="carrossel"><span class="type">Carrossel</span><h3>Categorias</h3><p>Iniciação à Pesquisa, Divulgação Científica, Atitude Científica, Cientista Parceiro e Convidados.</p></div>
+        <div class="mini" data-kind="youtube"><span class="type">YouTube</span><h3>Thumbnail de projeto</h3><p>Template com nome do projeto, escola, categoria e selo da edição.</p></div>
+        <div class="mini" data-kind="youtube"><span class="type">YouTube</span><h3>Live de resultados</h3><p>Tela de espera, abertura, intervalo, resultado por categoria e encerramento.</p></div>
+        <div class="mini" data-kind="web"><span class="type">Site/Sistema</span><h3>Banner web principal</h3><p>Hero visual para página oficial com tema, edição e chamadas de ação.</p></div>
+        <div class="mini" data-kind="web"><span class="type">Site/Sistema</span><h3>Cards de status</h3><p>Inscrições abertas, análise, aprovados, homologados, vídeos publicados e resultados.</p></div>
+        <div class="mini" data-kind="story"><span class="type">Story</span><h3>QR-Code de votação</h3><p>Story para direcionar público ao formulário de Melhor Estande e playlist do YouTube.</p></div>
+        <div class="mini" data-kind="feed"><span class="type">Feed</span><h3>Lista final homologada</h3><p>Arte institucional para publicação da lista final de projetos aptos à culminância.</p></div>
+        <div class="mini" data-kind="feed"><span class="type">Feed</span><h3>Premiados</h3><p>Cards por categoria, colocação e menções honrosas.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="impressos">
+      <div class="section-head">
+        <h2>Materiais impressos e operacionais</h2>
+        <p>Peças que precisam estar prontas fisicamente para a organização, circulação, avaliação e cerimônia.</p>
+      </div>
+
+      <div class="grid two">
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Credenciamento</span><span class="badge doc">Controle</span></div>
+          <h3>Kit de credenciamento</h3>
+          <ul>
+            <li>Crachás por função: estudante, orientador, coorientador, avaliador, comissão, apoio, imprensa e convidado.</li>
+            <li>Lista de presença por escola/categoria.</li>
+            <li>Mapa dos estandes.</li>
+            <li>Programação impressa.</li>
+            <li>Etiquetas ou pulseiras de controle, se necessário.</li>
+          </ul>
+          <div class="spec"><strong>Formato:</strong> crachás A6/A7, listas A4, programação A5/A4, mapa A3.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Avaliação</span><span class="badge doc">Técnico</span></div>
+          <h3>Kit do avaliador</h3>
+          <ul>
+            <li>Ficha de avaliação da Apresentação Oral.</li>
+            <li>Ficha de avaliação do Banner Expositivo.</li>
+            <li>Ficha de avaliação do Diário de Bordo.</li>
+            <li>Roteiro de critérios.</li>
+            <li>Lista de estandes atribuídos a cada avaliador.</li>
+          </ul>
+          <div class="spec"><strong>Formato:</strong> A4 impresso e planilha digital para consolidação.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Palco</span><span class="badge event">Cerimônia</span></div>
+          <h3>Kit de solenidade</h3>
+          <ul>
+            <li>Slides de abertura e encerramento.</li>
+            <li>Roteiro visual para mestre de cerimônia.</li>
+            <li>Slides de premiação por categoria.</li>
+            <li>Cartões de chamada de autoridades e parceiros.</li>
+            <li>Painel ou lona de palco.</li>
+          </ul>
+          <div class="spec"><strong>Formato:</strong> 16:9 para telão, A5/A4 para roteiro e lona/painel conforme local.</div>
+        </article>
+
+        <article class="card print">
+          <div class="badge-row"><span class="badge print">Prêmios</span><span class="badge doc">Certificação</span></div>
+          <h3>Diplomas e certificados</h3>
+          <ul>
+            <li>Diplomas de 1º, 2º e 3º lugar.</li>
+            <li>Menção Honrosa EJA.</li>
+            <li>Maior Engajamento no YouTube.</li>
+            <li>Melhor Estande Inovador.</li>
+            <li>Certificados de participação e atuação.</li>
+          </ul>
+          <div class="spec"><strong>Formato:</strong> A4 horizontal, PDF individual, possibilidade de impressão em papel especial.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="evento">
+      <div class="section-head">
+        <h2>Mapa do evento presencial</h2>
+        <p>Itens visuais e físicos necessários para que o público entenda onde ir, o que fazer e quem procurar.</p>
+      </div>
+
+      <div class="grid four">
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Entrada</h3><ul><li>Lona de boas-vindas.</li><li>Seta para credenciamento.</li><li>QR-Code da programação.</li><li>Equipe de recepção identificada.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Credenciamento</h3><ul><li>Painel principal.</li><li>Lista por escola/categoria.</li><li>Crachás e materiais.</li><li>Mapa dos estandes.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Central de Operações</h3><ul><li>Painel de identificação.</li><li>Checklists internos.</li><li>Contato de suporte.</li><li>Controle de ocorrências.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Estandes</h3><ul><li>Numeração.</li><li>Identificação por categoria.</li><li>QR-Code de votação.</li><li>Orientação de área ocupada.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Avaliadores</h3><ul><li>Ponto de encontro.</li><li>Kit do avaliador.</li><li>Lista de estandes.</li><li>Orientações de critérios.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Almoço / Lanche</h3><ul><li>Painel de identificação.</li><li>Horários.</li><li>Orientação de fila.</li><li>Controle de acesso.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Fotos oficiais</h3><ul><li>Backdrop.</li><li>Marca da edição.</li><li>Assinaturas oficiais.</li><li>Espaço para equipes.</li></ul></article>
+        <article class="card event"><div class="badge-row"><span class="badge event">Área</span></div><h3>Palco / abertura</h3><ul><li>Painel de fundo.</li><li>Slides 16:9.</li><li>Roteiro visual.</li><li>Chamada de premiação.</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="cronograma">
+      <div class="section-head">
+        <h2>Fases de produção</h2>
+        <p>Organização sugerida para alinhar criação visual com as etapas oficiais da 10ª SMCT.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="time-card"><strong>Fase 1</strong><h3>Lançamento</h3><p>Identidade da edição, edital, cronograma, anexos, cards de chamada e página inicial.</p></div>
+        <div class="time-card"><strong>Fase 2</strong><h3>Inscrições</h3><p>Campanha de prazos, guias de submissão, modelos oficiais e tutoriais para orientadores.</p></div>
+        <div class="time-card"><strong>Fase 3</strong><h3>Análise</h3><p>Comunicados, templates de parecer, artes de aprovados, ressalvas e reenvio.</p></div>
+        <div class="time-card"><strong>Fase 4</strong><h3>Segunda etapa</h3><p>Templates de Diário, Banner, vídeo, termos, checklist documental e alertas de envio.</p></div>
+        <div class="time-card"><strong>Fase 5</strong><h3>Evento</h3><p>Crachás, sinalização, backdrop, lonas, painéis, fichas, mapa, votação e cobertura.</p></div>
+        <div class="time-card"><strong>Fase 6</strong><h3>Pós-evento</h3><p>Resultados, certificados, diplomas, anais eletrônicos, álbum, vídeo resumo e memória institucional.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist">
+      <div class="section-head">
+        <h2>Checklist executivo</h2>
+        <p>Lista curta para conferência de produção antes de abrir a demanda para design, comunicação, impressão e operação.</p>
+      </div>
+
+      <div class="grid two">
+        <article class="card doc">
+          <div class="badge-row"><span class="badge doc">Antes de produzir</span></div>
+          <h3>Informações que precisam ser fechadas</h3>
+          <ul>
+            <li>Local oficial e planta/medidas do espaço.</li>
+            <li>Número estimado de equipes, escolas e estandes.</li>
+            <li>Quantidade de avaliadores e equipe de apoio.</li>
+            <li>Lista de logos institucionais e parceiros.</li>
+            <li>Definição sobre camisa oficial.</li>
+            <li>Formato de votação do Melhor Estande.</li>
+            <li>Fluxo de emissão de certificados.</li>
+          </ul>
+        </article>
+
+        <article class="card doc">
+          <div class="badge-row"><span class="badge doc">Arquivos finais</span></div>
+          <h3>Pacote de entrega esperado</h3>
+          <ul>
+            <li>Figma organizado por páginas e componentes.</li>
+            <li>PNG/JPG para redes sociais.</li>
+            <li>PDF fechado para impressão.</li>
+            <li>Arquivos vetoriais de marca e sinalização.</li>
+            <li>Planilha de materiais com quantidade, dimensão e status.</li>
+            <li>Pasta final separada por: Digital, Impressão, Evento, Vídeo, Documentos e Pós-evento.</li>
+          </ul>
+        </article>
+      </div>
+
+      <footer class="footer">
+        <div>
+          <h2>Definição final do escopo</h2>
+          <p>O que será criado pela Secretaria é um sistema completo de materiais oficiais para comunicação, orientação, operação e memória da SMCT. A produção deve permitir que qualquer escola saiba como participar, que qualquer visitante saiba para onde ir e que a Secretaria tenha consistência visual em todos os pontos de contato.</p>
+        </div>
+        <div>
+          <ul>
+            <li>Digital: feed, stories, carrosséis, YouTube e site.</li>
+            <li>Impresso: documentos, crachás, fichas, diplomas e certificados.</li>
+            <li>Evento: backdrop, lonas, painéis, placas, mapas e sinalização.</li>
+            <li>Pós-evento: resultados, anais, álbum e memória audiovisual.</li>
+          </ul>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('[data-filter]');
+    const cards = document.querySelectorAll('#digitalGrid [data-kind]');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+        cards.forEach(card => {
+          const show = filter === 'all' || card.dataset.kind === filter;
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
